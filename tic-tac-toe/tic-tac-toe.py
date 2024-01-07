@@ -44,11 +44,11 @@ class Menu:
         print("1- start New Game")
         print("2- Quit Game")
         while(True):
-            choise = input("Enter your Choise (1 or 2)")
+            choise = input("Enter your Choise (1 or 2): ")
             if(Menu.isvalid_choise(choise)):
                 return choise
             else:
-                print("invalid choise use (1 or 2)")
+                print("invalid choise use (1 or 2): ")
         clear_screen()
 
     @classmethod
@@ -91,6 +91,7 @@ class Game:
     
     def start_game(self):
         choise = self.menu.display_main_menu()
+        clear_screen()
         if(choise == "1"):
             self.setup_players()
             self.play_game()
@@ -107,7 +108,11 @@ class Game:
     def play_game(self):
         while(True):
             self.play_turn()
-            if(self.check_win() or self.check_draw()):
+            win = self.check_win()
+            draw = self.check_draw()
+            if(win or draw):
+                self.board.display_Board()
+                print(f"the winner is: {self.players[self.current_player_index]} XD XD" if win else "Game finished with Draw.")
                 choise = self.menu.display_end_menu()
                 if(choise == "1"):
                     self.restart_game()
@@ -137,14 +142,10 @@ class Game:
             [0, 3, 6], [1, 4, 7], [2, 5, 8],
             [0, 4, 8], [2, 4, 6]
         ]
-
         for combo in win_combinations:
             if(self.board.board[combo[0]] == self.board.board[combo[1]] == self.board.board[combo[2]]):
                 return True
-            
         return False
-
-    
 
     def check_draw(self):
         return all(not i.isdigit() for i in self.board.board)
