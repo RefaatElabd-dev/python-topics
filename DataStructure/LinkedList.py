@@ -62,7 +62,7 @@ class LinkedList(DataStructure):
         temp = self.head
         for _ in range(index):
             temp = temp.next
-        return temp.value
+        return temp
 
     def print_list(self):
         temp = self.head
@@ -92,7 +92,17 @@ class LinkedList(DataStructure):
 
 
     def insert(self, index, value):
-        pass
+        if(index == 0):
+            return self.prepend(value)
+        if(index == self.length):
+            return self.append(value)
+        prev_node = self.get(index - 1)
+        if(prev_node):
+            new_node = Node(value)
+            new_node.next = prev_node.next
+            prev_node.next = new_node
+            return True
+        return False
 
     def pop(self):
         if(self.length == 0):
@@ -127,7 +137,11 @@ class LinkedList(DataStructure):
         pass
 
     def set(self, index, value):
-        pass
+        target_node = self.get(index)
+        if(target_node):
+            target_node.value = value
+            return True
+        return False
 
 
     
@@ -153,10 +167,18 @@ myLinkedList.prepend(4)
 # print(myLinkedList.pop_first())
 # print(myLinkedList.pop_first())
 
-print(myLinkedList.get(3))
-print(myLinkedList.get(0))
-print(myLinkedList.get(4))
-print(myLinkedList.get(5))
+myLinkedList.print_list()
+print("after first insertion")
+myLinkedList.insert(3, 20)
+
+myLinkedList.print_list()
+myLinkedList.insert(2, 10)
+print("after second insertion")
+myLinkedList.print_list()
+
+myLinkedList.set(3, 18)
+print("end")
+
 
 
 
