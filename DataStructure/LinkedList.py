@@ -31,7 +31,7 @@ class DataStructure(ABC):
         pass
     
     @abstractmethod
-    def remove(self):
+    def remove(self, index):
         pass
 
     @abstractmethod
@@ -101,6 +101,7 @@ class LinkedList(DataStructure):
             new_node = Node(value)
             new_node.next = prev_node.next
             prev_node.next = new_node
+            self.length += 1
             return True
         return False
 
@@ -117,7 +118,7 @@ class LinkedList(DataStructure):
         self.length -= 1
         if (self.length == 0):
             self.head = self.tail = None
-        return temp.value
+        return temp
     
     def pop_first(self):
         if(self.length == 0):
@@ -128,13 +129,37 @@ class LinkedList(DataStructure):
         self.length -= 1
         if(self.length == 0):
             self.tail = None
-        return temp.value
+        return temp
     
-    def remove(self):
-        pass
+    def remove(self, index):
+        if(index == 0):
+            self.pop_first()
+            return True
+        if(index == self.length):
+            self.pop()
+            return True
+        prev_node = self.get(index - 1)
+        if(prev_node != None):
+            temp = prev_node.next
+            prev_node.next = temp.next
+            temp.next = None
+            self.length -= 1
+            return True
+        return False
 
     def reverse(self):
-        pass
+        if(self.tail == None or self.head == self.tail):
+            return
+        temp = self.head
+        self.head = self.tail
+        self.tail = temp
+        # after
+        before = None
+        for _ in range(self.length):
+            after = temp.next
+            temp.next = before
+            before = temp
+            temp = after
 
     def set(self, index, value):
         target_node = self.get(index)
@@ -177,8 +202,16 @@ print("after second insertion")
 myLinkedList.print_list()
 
 myLinkedList.set(3, 18)
-print("end")
+print("after override 3rd Node with value 18")
+myLinkedList.print_list()
 
+myLinkedList.remove(4)
+print("after removing 4th")
+myLinkedList.print_list()
+
+print("Reversing ...")
+myLinkedList.reverse()
+myLinkedList.print_list()
 
 
 
