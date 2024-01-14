@@ -167,6 +167,29 @@ class LinkedList(DataStructure):
             target_node.value = value
             return True
         return False
+    
+    ################## Problems ##################
+    ######### Find Middle Node
+    def find_middle_node (self):
+        slow_ptr = self.head
+        fast_ptr = self.head
+        while(fast_ptr):
+            fast_ptr = fast_ptr.next
+            if(fast_ptr):
+                slow_ptr = slow_ptr.next
+                fast_ptr = fast_ptr.next
+        return slow_ptr
+    
+    # has_loop
+    def has_loop(self):
+        slow_ptr = self.head
+        fast_ptr = self.head
+        while(fast_ptr and fast_ptr.next):
+            slow_ptr = slow_ptr.next
+            fast_ptr = fast_ptr.next.next
+            if(fast_ptr == slow_ptr):
+                return True
+        return False
 
 
     
