@@ -191,8 +191,15 @@ class LinkedList(DataStructure):
                 return True
         return False
 
-
-    
+def find_kth_from_end(ll,  k):
+    if(k<=0 or ll.head == None):
+        return None
+    slow = ll.head
+    fast = ll.head
+    for _ in range(k-1):
+        fast = fast.next
+        if(fast == None):
+            return None
 
 myLinkedList = LinkedList(1)
 myLinkedList.append(5)
