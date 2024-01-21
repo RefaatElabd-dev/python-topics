@@ -122,3 +122,76 @@ class DoublyLinkedList:
         self.length -= 1
         return temp
         
+    def swap_first_last(self):
+        if self.head is not None:
+            temp_value = self.head.value
+            self.head.value = self.tail.value
+            self.tail.value = temp_value
+    
+    def reverse(self):
+        temp = self.head
+        for _ in range(self.length):
+            prev = temp.prev
+            temp.prev = temp.next
+            temp.next = prev
+            temp = temp.prev
+        temp = self.head
+        self.head = self.tail
+        self.tail = temp
+
+    def is_palindrome(self):
+        if self.length <= 1:
+            return True
+        middle = self.length//2
+        if(middle * 2 < self.length):
+            middle += 1
+        right = self.tail
+        left = self.head
+        for _ in range(middle):
+            if(right.value == left.value):
+                right = right.prev
+                left = left.next
+                continue
+            return False
+        if(right.value == left.value):
+            return True
+        return False
+    
+    def swap_pairs(self):
+        if self.length > 1:
+            temp = self.head
+            while(temp is not None and temp.next is not None):
+                self.swap(temp, temp.next)
+                temp = temp.next.next
+        return self.head
+    
+    def swap(self, node1, node2):
+        value = node1.value
+        node1.value = node2.value
+        node2.value = value
+
+my_dll = DoublyLinkedList(1)
+my_dll.append(2)
+my_dll.append(3)
+my_dll.append(4)
+
+print('my_dll before swap_pairs:')
+my_dll.print_list()
+
+my_dll.swap_pairs() 
+
+
+print('my_dll after swap_pairs:')
+my_dll.print_list()
+
+
+"""
+    EXPECTED OUTPUT:
+    ----------------
+    my_dll before swap_pairs:
+    1 <-> 2 <-> 3 <-> 4
+    ------------------------
+    my_dll after swap_pairs:
+    2 <-> 1 <-> 4 <-> 3
+
+"""
