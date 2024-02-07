@@ -92,7 +92,39 @@ class BinarySearchTree:
         tree_in_order_values = self.dfs_in_order()
         return tree_in_order_values == sorted(tree_in_order_values)
 
+    def kth_smallest(self, k):
+        if(self.root is None or k < 1):
+            return None
+        smallest_values = []
+        def traverse(current_node):
+            if current_node.left is not None:
+                traverse(current_node.left)
+            if(len(smallest_values) < k):
+                smallest_values.append(current_node.value)
+            else: 
+                return
+            if current_node.right is not None:
+                traverse(current_node.right)
+        traverse(self.root)
+        return None if len(smallest_values) < k else smallest_values[len(smallest_values) - 1]
 
+    def kth_smallest2(self, k):
+        stack = []
+        node = self.root
+        
+        while stack or node:
+            while node:
+                stack.append(node)
+                node = node.left
+            
+            node = stack.pop()
+            k -= 1
+            if k == 0:
+                return node.value
+            
+            node = node.right
+            
+        return None
 
 
 ##########################################################   
