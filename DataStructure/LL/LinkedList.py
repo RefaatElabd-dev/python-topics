@@ -204,6 +204,20 @@ class LinkedList(DataStructure):
     def swap(self, node1, node2):
         node1.value, node2.value = node2.value, node1.value
 
+    def selection_sort(self):
+        j = 0
+        current = self.head
+        for i in range(self.length):
+            smallest = current
+            inner_current = current.next
+            while inner_current is not None:
+                if(inner_current.value < smallest.value):
+                    smallest = inner_current
+                inner_current = inner_current.next
+            if (smallest.value != current.value):
+                smallest.value, current.value = current.value, smallest.value
+            current = current.next
+
 def find_kth_from_end(ll,  k):
     if(k<=0 or ll.head == None):
         return None
