@@ -190,6 +190,19 @@ class LinkedList(DataStructure):
             if(fast_ptr == slow_ptr):
                 return True
         return False
+    
+    def bubble_sort(self):
+        j = 0
+        for i in range(self.length):
+            temp = self.head
+            while temp.next is not None and j != self.length - i:
+                if temp.value > temp.next.value:
+                    self.swap(temp, temp.next)
+                temp = temp.next
+                j += 1
+        
+    def swap(self, node1, node2):
+        node1.value, node2.value = node2.value, node1.value
 
 def find_kth_from_end(ll,  k):
     if(k<=0 or ll.head == None):
