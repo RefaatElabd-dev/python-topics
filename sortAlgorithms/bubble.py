@@ -1,8 +1,13 @@
-def bubble_sort(nums):
-    for i in range(len(nums)):
-        for j in range(i, len(nums), 1):
-            if nums[i] > nums[j]:
-                nums[i], nums[j] = nums[j], nums[i]
-    return nums
+def bubble_sort(my_list):
+    for i in range(len(my_list) - 1, 0 ,-1):
+        for j in range(i):
+            if my_list[j] > my_list[j+1]:
+                temp = my_list[j]
+                my_list[j] = my_list[j+1]
+                my_list[j+1] = temp
+    return my_list
 
 print(bubble_sort([5, 2, 1, 4, 3]))
+
+# create bubble sort algorithm
+
