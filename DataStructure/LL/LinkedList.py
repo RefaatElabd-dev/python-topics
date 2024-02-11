@@ -250,6 +250,29 @@ class LinkedList(DataStructure):
             before = before.next
             current = current.next
 
+    def merge(self, other_list):
+        compined = LinkedList(0)
+        current = compined.head
+        while self.head is not None and other_list.head is not None:
+            if self.head.value < other_list.head.value:
+                compined.append(self.head.value)
+                self.head = self.head.next
+            else:
+                compined.append(other_list.head.value)
+                other_list.head = other_list.head.next
+                
+        while self.head is not None:
+            compined.append(self.head.value)
+            self.head = self.head.next
+            
+        while other_list.head is not None:
+            compined.append(other_list.head.value)
+            other_list.head = other_list.head.next
+        
+        self.head = compined.head.next
+        self.tail = compined.tail
+        self.length = compined.length
+
 
 def find_kth_from_end(ll,  k):
     if(k<=0 or ll.head == None):
