@@ -217,6 +217,39 @@ class LinkedList(DataStructure):
             if (smallest.value != current.value):
                 smallest.value, current.value = current.value, smallest.value
             current = current.next
+    
+    # create insertion sort algorithm for a linked list
+    def insertion_sort(self):
+        if self.length < 2:
+            return
+        sorted_list = LinkedList(self.head.value)
+        self.head = self.head.next
+        while self.head is not None:
+            current = self.head
+            self.head = self.head.next
+            current.next = None
+            if current.value < sorted_list.tail.value:
+                sorted_list.insert_in_sorted_place(current)
+            else: 
+                sorted_list.append(current.value)
+        self.head = sorted_list.head
+   
+    def insert_in_sorted_place(self, node):
+        if node.value < self.head.value:
+            node.next = self.head
+            self.head = node
+            return
+        before = self.head
+        current = self.head.next
+        while True:
+            if node.value >= before.value and node.value <= current.value:
+                node.next = current
+                before.next = node
+                self.length += 1
+                break
+            before = before.next
+            current = current.next
+
 
 def find_kth_from_end(ll,  k):
     if(k<=0 or ll.head == None):
