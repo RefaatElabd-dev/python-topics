@@ -4,7 +4,7 @@ def find_max_min(myList):
     for item in myList:
         if item < min_value:
             min_value = item
-        if item > max_value:
+        elif item > max_value:
             max_value = item
     return (max_value, min_value)
     
